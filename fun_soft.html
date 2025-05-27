@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Patient Registration System</h1>
+        </header>
+        
+        <div class="card">
+            <div class="card-header">
+                Quick Actions
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <button class="btn" id="newPatientBtn">Register New Patient</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn" id="searchPatientBtn">Search Patient</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn" id="sendMessageBtn">Send Message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card" id="messageSection" style="display: none;">
+            <div class="card-header">
+                Message Broadcasting
+            </div>
+            <div class="card-body">
+                <div class="message-box">
+                    <label for="messageContent">Message Content:</label>
+                    <textarea id="messageContent" placeholder="Type your message here..."></textarea>
+                    <div class="row">
+                        <div class="col">
+                            <label for="recipientGroup">Recipient Group:</label>
+                            <select id="recipientGroup">
+                                <option value="all">All Patients</option>
+                                <option value="active">Active Patients</option>
+                                <option value="inactive">Inactive Patients</option>
+                                <option value="custom">Custom Group</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-success" id="sendMessage">Send Message</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card" id="patientFormSection" style="display: none;">
+            <div class="tabs">
+                <div class="tab active" data-tab="basic">Basic Information</div>
+                <div class="tab" data-tab="demographic">Demographic</div>
+                <div class="tab" data-tab="medical">Medical & Insurance</div>
+                <div class="tab" data-tab="visits">Visit History</div>
+            </div>
+            
+            <div class="tab-content active" id="basic">
+                <form id="patientForm">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="patientId">Patient ID</label>
+                                <input type="text" id="patientId" readonly>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="registrationDate">Registration Date</label>
+                                <input type="date" id="registrationDate">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="dob">Date of Birth *</label>
+                                <input type="date" id="dob" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="gender">Gender *</label>
+                                <select id="gender" required>
+                                    <option value="">Select</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input type="tel" id="phone" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="email" id="email">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="idNumber">National ID Number</label>
+                                <input type="text" id="idNumber">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="maritalStatus">Marital Status</label>
+                                <select id="maritalStatus">
+                                    <option value="">Select</option>
+                                    <option value="single">Single</option>
+                                    <option value="married">Married</option>
+                                    <option value="divorced">Divorced</option>
+                                    <option value="widowed">Widowed</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success">Save Patient</button>
+                    <button type="button" class="btn btn-danger" id="cancelPatient">Cancel</button>
+                </form>
+            </div>
+            
+            <div class="tab-content" id="demographic">
+               
+                <p>Demographic information section</p>
+            </div>
+            
+            <div class="tab-content" id="medical">
+                
+                <p>Medical and insurance information section</p>
+            </div>
+            
+            <div class="tab-content" id="visits">
+    
+                <p>Visit history section</p>
+            </div>
+        </div>
+        
+        <div class="card" id="searchSection" style="display: none;">
+            <div class="card-header">
+                Patient Search
+            </div>
+            <div class="card-body">
+                <div class="search-container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="searchTerm">Search Term</label>
+                                <input type="text" id="searchTerm" placeholder="ID, Name, Phone...">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="searchType">Search By</label>
+                                <select id="searchType">
+                                    <option value="id">Patient ID</option>
+                                    <option value="name">Name</option>
+                                    <option value="phone">Phone</option>
+                                    <option value="idNumber">ID Number</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn" id="searchBtn">Search</button>
+                </div>
+                
+                <div id="searchResults">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Patient ID</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Last Visit</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="resultsBody">
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        document.getElementById('newPatientBtn').addEventListener('click', () => {
+            document.getElementById('patientFormSection').style.display = 'block';
+            document.getElementById('searchSection').style.display = 'none';
+            document.getElementById('messageSection').style.display = 'none';
+            document.getElementById('patientForm').reset();
+            document.getElementById('patientId').value = 'PAT-' + Math.floor(Math.random() * 1000000);
+            document.getElementById('registrationDate').valueAsDate = new Date();
+        });
+        
+        document.getElementById('searchPatientBtn').addEventListener('click', () => {
+            document.getElementById('patientFormSection').style.display = 'none';
+            document.getElementById('searchSection').style.display = 'block';
+            document.getElementById('messageSection').style.display = 'none';
+        });
+        
+        document.getElementById('sendMessageBtn').addEventListener('click', () => {
+            document.getElementById('patientFormSection').style.display = 'none';
+            document.getElementById('searchSection').style.display = 'none';
+            document.getElementById('messageSection').style.display = 'block';
+        });
+        
+        document.getElementById('cancelPatient').addEventListener('click', () => {
+            document.getElementById('patientFormSection').style.display = 'none';
+        });
+        
+       
+        document.getElementById('patientForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Patient information saved!');
+            document.getElementById('patientFormSection').style.display = 'none';
+        });
+        
+       
+        document.getElementById('searchBtn').addEventListener('click', () => {
+           
+            const resultsBody = document.getElementById('resultsBody');
+            resultsBody.innerHTML = `
+                <tr>
+                    <td>PAT-123456</td>
+                    <td>John Doe</td>
+                    <td>+254712345678</td>
+                    <td>2023-05-15</td>
+                    <td><button class="btn">View</button></td>
+                </tr>
+                <tr>
+                    <td>PAT-789012</td>
+                    <td>Ted karanja</td>
+                    <td>+254791192168</td>
+                    <td>2023-06-20</td>
+                    <td><button class="btn">View</button></td>
+                </tr>
+            `;
+        });
+    </script>
+</body>
+</html>
