@@ -1,11 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Registration System</title>
     <link rel="stylesheet" href="style.css">
 </head>
+<header>
+  <h1>Patient Registration System</h1>
+  <div class="auth-buttons">
+    <button id="loginBtn" class="btn">Login</button>
+    <button id="logoutBtn" class="btn" style="display: none;">Logout</button>
+  </div>
+</header>
 <body>
     <div class="container">
         <header>
@@ -289,5 +296,116 @@
             `;
         });
     </script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBnBPNgHPB_qr8btyPIiQJ4sAh1uQREfpk",
+    authDomain: "funsoft-web.firebaseapp.com",
+    projectId: "funsoft-web",
+    storageBucket: "funsoft-web.appspot.com",
+    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",// Replace this
+    appId: "funsoft-web"
+  };
+
+  
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script>
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+
+  async function login() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    try {
+      const result = await auth.signInWithPopup(provider);
+      return result.user;
+    } catch (error) {
+      console.error("Login error:", error);
+    }
+  }
+
+  function logout() {
+    auth.signOut();
+  }
+
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      console.log("User logged in:", user);
+    } else {
+      console.log("User logged out");
+    }
+  });
+  document.getElementById('patientForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const user = auth.currentUser;
+    if (!user) {
+      alert('Please login first');
+      return;
+    }
+
+    const patientData = {
+      personalInfo: {
+        patientId: document.getElementById('patientId').value,
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        dob: document.getElementById('dob').value,
+        gender: document.getElementById('gender').value,
+        phone: document.getElementById('phone').value,
+        email: document.getElementById('email').value,
+        idNumber: document.getElementById('idNumber').value,
+        maritalStatus: document.getElementById('maritalStatus').value
+      },
+      registrationDate: document.getElementById('registrationDate').value,
+      userId: user.uid,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    };
+
+    try {
+      const docRef = await db.collection('patients').add(patientData);
+      alert('Patient saved successfully!');
+      document.getElementById('patientFormSection').style.display = 'none';
+    } catch (error) {
+      console.error("Error saving patient:", error);
+      alert('Error saving patient');
+    }
+  });
+  document.getElementById('searchBtn').addEventListener('click', async () => {
+    const searchTerm = document.getElementById('searchTerm').value;
+    const searchType = document.getElementById('searchType').value;
+    
+    let query = db.collection('patients');
+    
+    if (searchTerm) {
+      query = query.where(`personalInfo.${searchType}`, '==', searchTerm);
+    }
+
+    try {
+      const snapshot = await query.get();
+      const resultsBody = document.getElementById('resultsBody');
+      resultsBody.innerHTML = '';
+      
+      snapshot.forEach(doc => {
+        const patient = doc.data();
+        const row = `
+          <tr>
+            <td>${patient.personalInfo.patientId}</td>
+            <td>${patient.personalInfo.firstName} ${patient.personalInfo.lastName}</td>
+            <td>${patient.personalInfo.phone}</td>
+            <td>${patient.lastVisit || 'N/A'}</td>
+            <td><button class="btn" onclick="viewPatient('${doc.id}')">View</button></td>
+          </tr>
+        `;
+        resultsBody.innerHTML += row;
+      });
+    } catch (error) {
+      console.error("Search error:", error);
+    }
+  });
+</script>
 </body>
 </html>

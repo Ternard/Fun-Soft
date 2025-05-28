@@ -1,4 +1,3 @@
-
         :root {
             --primary: #3498db;
             --secondary: #2980b9;
@@ -189,4 +188,14 @@
                 margin-bottom: 15px;
             }
         }
+        
+.auth-buttons {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.auth-buttons .btn {
+  margin-left: 10px;
+}       
     
