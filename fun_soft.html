@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Patient Registration System</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Node.js">
+    <link rel="stylesheet" href="API_DOCS.md">
+    <link rel="stylesheet" href="auth.js">
+    <link rel="stylesheet" href=".env">
 </head>
-<header>
-  <h1>Patient Registration System</h1>
-  <div class="auth-buttons">
-    <button id="loginBtn" class="btn">Login</button>
-    <button id="logoutBtn" class="btn" style="display: none;">Logout</button>
-  </div>
-</header>
+
 <body>
     <div class="container">
         <header>
@@ -33,6 +31,9 @@
                     </div>
                     <div class="col">
                         <button class="btn" id="sendMessageBtn">Send Message</button>
+                    </div>
+                    <div class="col">
+                        <button class="btn" id="PaymentdetailsBtn">Payment Details</button>
                     </div>
                 </div>
             </div>
@@ -163,20 +164,330 @@
                 </form>
             </div>
             
-            <div class="tab-content" id="demographic">
-               
-                <p>Demographic information section</p>
+           <div class="tab-content" id="demographic">
+    <form id="demographicForm">
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="address">Address *</label>
+                    <input type="text" id="address" required>
+                </div>
             </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="city">City *</label>
+                    <input type="text" id="city" required>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="state">State/Province *</label>
+                    <input type="text" id="state" required>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="postalCode">Postal Code *</label>
+                    <input type="text" id="postalCode" required>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="country">Country *</label>
+                    <select id="country" required>
+                        <option value="">Select Country</option>
+                        <option value="US">United States</option>
+                        <option value="CA">Canada</option>
+                        <option value="UK">United Kingdom</option>
+                        <!-- Add more countries as needed -->
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="language">Preferred Language</label>
+                    <select id="language">
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                        <option value="fr">French</option>
+                        <!-- Add more languages as needed -->
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="ethnicity">Ethnicity (Optional)</label>
+                    <select id="ethnicity">
+                        <option value="">Prefer not to say</option>
+                        <option value="white">White/Caucasian</option>
+                        <option value="black">Black/African American</option>
+                        <option value="asian">Asian</option>
+                        <option value="hispanic">Hispanic/Latino</option>
+                        <option value="native">Native American</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="education">Education Level</label>
+                    <select id="education">
+                        <option value="">Select Education</option>
+                        <option value="none">No Formal Education</option>
+                        <option value="highschool">High School</option>
+                        <option value="college">College</option>
+                        <option value="bachelors">Bachelor's Degree</option>
+                        <option value="masters">Master's Degree</option>
+                        <option value="doctorate">Doctorate</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="occupation">Occupation</label>
+            <input type="text" id="occupation" placeholder="Current job title">
+        </div>
+        
+        <div class="form-group">
+            <label for="householdIncome">Household Income Range (Optional)</label>
+            <select id="householdIncome">
+                <option value="">Prefer not to say</option>
+                <option value="under25">Under $25,000</option>
+                <option value="25-50">$25,000 - $50,000</option>
+                <option value="50-100">$50,000 - $100,000</option>
+                <option value="over100">Over $100,000</option>
+            </select>
+        </div>
+    </form>
+</div>
             
             <div class="tab-content" id="medical">
-                
-                <p>Medical and insurance information section</p>
+    <form id="medicalForm">
+        <div class="insurance-fields">
+            <h3>Insurance Information</h3>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="insuranceProvider">Insurance Provider *</label>
+                        <input type="text" id="insuranceProvider" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="policyNumber">Policy Number *</label>
+                        <input type="text" id="policyNumber" required>
+                    </div>
+                </div>
             </div>
             
-            <div class="tab-content" id="visits">
-    
-                <p>Visit history section</p>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="groupNumber">Group Number</label>
+                        <input type="text" id="groupNumber">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="insuranceType">Insurance Type *</label>
+                        <select id="insuranceType" required>
+                            <option value="">Select Type</option>
+                            <option value="private">Private</option>
+                            <option value="employer">Employer-Sponsored</option>
+                            <option value="medicare">Medicare</option>
+                            <option value="medicaid">Medicaid</option>
+                            <option value="military">Military/Tricare</option>
+                            <option value="none">None/Self-Pay</option>
+                        </select>
+                    </div>
+                </div>
             </div>
+            
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="coverageStart">Coverage Start Date</label>
+                        <input type="date" id="coverageStart">
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="coverageEnd">Coverage End Date</label>
+                        <input type="date" id="coverageEnd">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="medical-fields">
+            <h3>Medical Information</h3>
+            <div class="form-group">
+                <label for="primaryPhysician">Primary Care Physician</label>
+                <input type="text" id="primaryPhysician" placeholder="Dr. Name">
+            </div>
+            
+            <div class="form-group">
+                <label for="bloodType">Blood Type</label>
+                <select id="bloodType">
+                    <option value="">Unknown</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label>Known Allergies</label>
+                <textarea id="allergies" rows="2" placeholder="List any known allergies (medications, food, etc.)"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Current Medications</label>
+                <textarea id="medications" rows="2" placeholder="List current medications with dosages"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>Chronic Conditions</label>
+                <textarea id="conditions" rows="2" placeholder="List any chronic conditions (diabetes, hypertension, etc.)"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="familyHistory">Family Medical History Notes</label>
+                <textarea id="familyHistory" rows="2" placeholder="Notable family medical history"></textarea>
+            </div>
+        </div>
+    </form>
+</div>
+            
+            <div class="tab-content" id="visits">
+    <div class="visit-history">
+        <div class="visit-controls">
+            <button class="btn" id="addVisitBtn">
+                <i class="icon-plus"></i> Add New Visit
+            </button>
+            <div class="search-visits">
+                <input type="text" id="visitSearch" placeholder="Search visits...">
+                <button class="btn"><i class="icon-search"></i></button>
+            </div>
+        </div>
+
+        <div class="visits-list">
+            <table class="visits-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Provider</th>
+                        <th>Purpose</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2023-11-15</td>
+                        <td>Dr. Smith</td>
+                        <td>Annual Checkup</td>
+                        <td><span class="status-badge completed">Completed</span></td>
+                        <td>
+                            <button class="btn-icon view-visit" title="View details">
+                                <i class="icon-eye"></i>
+                            </button>
+                            <button class="btn-icon edit-visit" title="Edit">
+                                <i class="icon-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2023-08-22</td>
+                        <td>Dr. Johnson</td>
+                        <td>Flu Symptoms</td>
+                        <td><span class="status-badge completed">Completed</span></td>
+                        <td>
+                            <button class="btn-icon view-visit" title="View details">
+                                <i class="icon-eye"></i>
+                            </button>
+                            <button class="btn-icon edit-visit" title="Edit">
+                                <i class="icon-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>2023-05-10</td>
+                        <td>Dr. Lee</td>
+                        <td>Vaccination</td>
+                        <td><span class="status-badge completed">Completed</span></td>
+                        <td>
+                            <button class="btn-icon view-visit" title="View details">
+                                <i class="icon-eye"></i>
+                            </button>
+                            <button class="btn-icon edit-visit" title="Edit">
+                                <i class="icon-edit"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Visit Detail Modal (hidden by default) -->
+        <div class="modal" id="visitDetailModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Visit Details</h3>
+                    <button class="close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="visit-detail">
+                        <div class="detail-row">
+                            <span class="detail-label">Date:</span>
+                            <span class="detail-value">2023-11-15</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Provider:</span>
+                            <span class="detail-value">Dr. Smith</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Purpose:</span>
+                            <span class="detail-value">Annual Checkup</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Diagnosis:</span>
+                            <span class="detail-value">Normal health status</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Treatment:</span>
+                            <span class="detail-value">No treatment required</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Notes:</span>
+                            <span class="detail-value">Patient advised to maintain current lifestyle and diet.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn">Print Summary</button>
+                    <button class="btn btn-success">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        
         </div>
         
         <div class="card" id="searchSection" style="display: none;">
@@ -188,8 +499,8 @@
                     <div class="row">
                         <div class="col">
                             <div class="form-group">
-                                <label for="searchTerm">Search Term</label>
-                                <input type="text" id="searchTerm" placeholder="ID, Name, Phone...">
+                                <label for="search patient">Search patient</label>
+                                <input type="text" id="search patient" placeholder="ID, Name, Phone...">
                             </div>
                         </div>
                         <div class="col">
@@ -226,186 +537,638 @@
             </div>
         </div>
     </div>
+    </div>
 
+    <div class="card" id="paymentSection" style="display: none;">
+    <div class="card-header">
+        Payment Details
+    </div>
+    <div class="card-body">
+        <div class="payment-fields">
+            <h3>Patient Payment Information</h3>
+            
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="paymentPatientId">Patient ID</label>
+                        <input type="text" id="paymentPatientId" readonly>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="paymentPatientName">Patient Name</label>
+                        <input type="text" id="paymentPatientName" readonly>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="paymentMethod">Payment Method *</label>
+                        <select id="paymentMethod" required>
+                            <option value="">Select Method</option>
+                            <option value="cash">Cash</option>
+                            <option value="credit">Credit Card</option>
+                            <option value="debit">Debit Card</option>
+                            <option value="mobile">Mobile Payment</option>
+                            <option value="insurance">Insurance</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="paymentAmount">Amount (KES) *</label>
+                        <input type="number" id="paymentAmount" required min="0" step="0.01">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="paymentDate">Payment Date *</label>
+                        <input type="date" id="paymentDate" required>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="paymentStatus">Payment Status</label>
+                        <select id="paymentStatus">
+                            <option value="completed">Completed</option>
+                            <option value="pending">Pending</option>
+                            <option value="partial">Partial</option>
+                            <option value="refunded">Refunded</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="paymentNotes">Payment Notes</label>
+                <textarea id="paymentNotes" rows="3" placeholder="Enter any payment notes..."></textarea>
+            </div>
+            
+            <button class="btn btn-success" id="savePayment">Save Payment</button>
+            <button class="btn" id="printReceipt">Print Receipt</button>
+        </div>
+        
+        <div class="payment-history">
+            <h3>Payment History</h3>
+            <table class="payment-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Method</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Receipt No.</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="paymentHistoryBody">
+                    <!-- Payment history will be loaded here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+    
+         <div id="loadingOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+              <div style="background: white; padding: 20px; border-radius: 5px;">
+                     Loading, please wait...
+              </div>
+         </div>
+     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        
-        document.querySelectorAll('.tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                
-                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                
-                
-                tab.classList.add('active');
-                const tabId = tab.getAttribute('data-tab');
-                document.getElementById(tabId).classList.add('active');
-            });
-        });
-        
-        document.getElementById('newPatientBtn').addEventListener('click', () => {
-            document.getElementById('patientFormSection').style.display = 'block';
-            document.getElementById('searchSection').style.display = 'none';
-            document.getElementById('messageSection').style.display = 'none';
-            document.getElementById('patientForm').reset();
-            document.getElementById('patientId').value = 'PAT-' + Math.floor(Math.random() * 1000000);
-            document.getElementById('registrationDate').valueAsDate = new Date();
-        });
-        
-        document.getElementById('searchPatientBtn').addEventListener('click', () => {
-            document.getElementById('patientFormSection').style.display = 'none';
-            document.getElementById('searchSection').style.display = 'block';
-            document.getElementById('messageSection').style.display = 'none';
-        });
-        
-        document.getElementById('sendMessageBtn').addEventListener('click', () => {
-            document.getElementById('patientFormSection').style.display = 'none';
-            document.getElementById('searchSection').style.display = 'none';
-            document.getElementById('messageSection').style.display = 'block';
-        });
-        
-        document.getElementById('cancelPatient').addEventListener('click', () => {
-            document.getElementById('patientFormSection').style.display = 'none';
-        });
-        
-       
-        document.getElementById('patientForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Patient information saved!');
-            document.getElementById('patientFormSection').style.display = 'none';
-        });
-        
-       
-        document.getElementById('searchBtn').addEventListener('click', () => {
-           
-            const resultsBody = document.getElementById('resultsBody');
-            resultsBody.innerHTML = `
-                <tr>
-                    <td>PAT-123456</td>
-                    <td>John Doe</td>
-                    <td>+254712345678</td>
-                    <td>2023-05-15</td>
-                    <td><button class="btn">View</button></td>
-                </tr>
-                <tr>
-                    <td>PAT-789012</td>
-                    <td>Ted karanja</td>
-                    <td>+254791192168</td>
-                    <td>2023-06-20</td>
-                    <td><button class="btn">View</button></td>
-                </tr>
-            `;
-        });
-    </script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+        // Initialize Supabase
+        const supabaseUrl = 'https://wtgmmckcenxyccltlukd.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Ind0Z21tY2tjZW54eWNjbHRsdWtkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDgyOTA0MDMsImV4cCI6MjA2Mzg2NjQwM30.nC5_D6fEKOAb0BxAxwucv-HcoAEx5UtxO-cfH6astHc';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
 
-<script>
-  const firebaseConfig = {
-    apiKey: "AIzaSyBnBPNgHPB_qr8btyPIiQJ4sAh1uQREfpk",
-    authDomain: "funsoft-web.firebaseapp.com",
-    projectId: "funsoft-web",
-    storageBucket: "funsoft-web.appspot.com",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",// Replace this
-    appId: "funsoft-web"
-  };
+        // Auth state listener
+        supabase.auth.onAuthStateChange((event, session) => {
+            if (session) {
+                console.log("User logged in:", session.user);
+                document.getElementById('loginBtn').style.display = 'none';
+                document.getElementById('logoutBtn').style.display = 'block';
+            } else {
+                console.log("User logged out");
+                document.getElementById('loginBtn').style.display = 'block';
+                document.getElementById('logoutBtn').style.display = 'none';
+            }
+        });
 
-  
-  firebase.initializeApp(firebaseConfig);
-</script>
-<script>
-  const app = firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.firestore();
+        // Help button
+        document.getElementById('helpBtn').addEventListener('click', () => {
+            alert("Help documentation will be displayed here.");
+        });
 
-  async function login() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    try {
-      const result = await auth.signInWithPopup(provider);
-      return result.user;
-    } catch (error) {
-      console.error("Login error:", error);
-    }
-  }
-
-  function logout() {
-    auth.signOut();
-  }
-
-  auth.onAuthStateChanged(user => {
-    if (user) {
-      console.log("User logged in:", user);
-    } else {
-      console.log("User logged out");
-    }
-  });
-  document.getElementById('patientForm').addEventListener('submit', async (e) => {
+        // Patient form submission
+document.getElementById('patientForm').addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    const user = auth.currentUser;
-    if (!user) {
-      alert('Please login first');
-      return;
-    }
-
+    // Gather data from all tabs
     const patientData = {
-      personalInfo: {
-        patientId: document.getElementById('patientId').value,
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
+        patient_id: document.getElementById('patientId').value,
+        first_name: document.getElementById('firstName').value,
+        last_name: document.getElementById('lastName').value,
         dob: document.getElementById('dob').value,
         gender: document.getElementById('gender').value,
         phone: document.getElementById('phone').value,
         email: document.getElementById('email').value,
-        idNumber: document.getElementById('idNumber').value,
-        maritalStatus: document.getElementById('maritalStatus').value
-      },
-      registrationDate: document.getElementById('registrationDate').value,
-      userId: user.uid,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        id_number: document.getElementById('idNumber').value,
+        marital_status: document.getElementById('maritalStatus').value,
+        address: {
+            street: document.getElementById('address').value,
+            city: document.getElementById('city').value,
+            state: document.getElementById('state').value,
+            postal_code: document.getElementById('postalCode').value,
+            country: document.getElementById('country').value
+        }
+    };
+
+    const demographicData = {
+        language: document.getElementById('language').value,
+        ethnicity: document.getElementById('ethnicity').value,
+        education: document.getElementById('education').value,
+        occupation: document.getElementById('occupation').value,
+        household_income: document.getElementById('householdIncome').value
+    };
+
+    const medicalData = {
+        insurance_provider: document.getElementById('insuranceProvider').value,
+        policy_number: document.getElementById('policyNumber').value,
+        group_number: document.getElementById('groupNumber').value,
+        insurance_type: document.getElementById('insuranceType').value,
+        coverage_start: document.getElementById('coverageStart').value,
+        coverage_end: document.getElementById('coverageEnd').value,
+        primary_physician: document.getElementById('primaryPhysician').value,
+        blood_type: document.getElementById('bloodType').value,
+        allergies: document.getElementById('allergies').value,
+        medications: document.getElementById('medications').value,
+        conditions: document.getElementById('conditions').value,
+        family_history: document.getElementById('familyHistory').value
     };
 
     try {
-      const docRef = await db.collection('patients').add(patientData);
-      alert('Patient saved successfully!');
-      document.getElementById('patientFormSection').style.display = 'none';
+        const { data: { session } } = await supabase.auth.getSession();
+        const response = await fetch('/api/patients', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${session.access_token}`
+            },
+            body: JSON.stringify({ patientData, demographicData, medicalData })
+        });
+
+        if (response.ok) {
+            showToast('Patient saved successfully!');
+            document.getElementById('patientFormSection').style.display = 'none';
+        } else {
+            const errorData = await response.json();
+            throw new Error(errorData.error || 'Failed to save patient');
+        }
     } catch (error) {
-      console.error("Error saving patient:", error);
-      alert('Error saving patient');
+        console.error("Error saving patient:", error);
+        showToast(`Error: ${error.message}`, 'error');
+    }
+});
+
+        // Patient search
+        document.getElementById('searchBtn').addEventListener('click', async () => {
+            const searchTerm = document.getElementById('searchTerm').value;
+            const searchType = document.getElementById('searchType').value;
+            
+            let query = supabase.from('patients').select('*');
+            
+            if (searchTerm) {
+                if (searchType === 'id') {
+                    query = query.eq('personal_info->>patient_id', searchTerm);
+                } else if (searchType === 'name') {
+                    query = query.or(`personal_info->>first_name.ilike.%${searchTerm}%,personal_info->>last_name.ilike.%${searchTerm}%`);
+                } else {
+                    query = query.eq(`personal_info->>${searchType}`, searchTerm);
+                }
+            }
+
+            try {
+                const { data, error } = await query;
+                if (error) throw error;
+                
+                const resultsBody = document.getElementById('resultsBody');
+                resultsBody.innerHTML = '';
+                
+                data.forEach(patient => {
+                    const row = `
+                        <tr>
+                            <td>${patient.personal_info.patient_id}</td>
+                            <td>${patient.personal_info.first_name} ${patient.personal_info.last_name}</td>
+                            <td>${patient.personal_info.phone}</td>
+                            <td>${patient.last_visit || 'N/A'}</td>
+                            <td>
+                                <button class="btn" onclick="viewPatient('${patient.id}')">View</button>
+                                <button class="btn" onclick="editPatient('${patient.id}')">Edit</button>
+                            </td>
+                        </tr>
+                    `;
+                    resultsBody.innerHTML += row;
+                });
+            } catch (error) {
+                console.error("Search error:", error);
+            }
+        });
+
+        // Add this validation script
+document.getElementById('patientForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  // Validate required fields
+  const requiredFields = ['firstName', 'lastName', 'dob', 'gender', 'phone'];
+  let isValid = true;
+  
+  requiredFields.forEach(fieldId => {
+    const field = document.getElementById(fieldId);
+    if (!field.value.trim()) {
+      field.classList.add('error');
+      isValid = false;
+    } else {
+      field.classList.remove('error');
     }
   });
-  document.getElementById('searchBtn').addEventListener('click', async () => {
-    const searchTerm = document.getElementById('searchTerm').value;
-    const searchType = document.getElementById('searchType').value;
-    
-    let query = db.collection('patients');
-    
-    if (searchTerm) {
-      query = query.where(`personalInfo.${searchType}`, '==', searchTerm);
-    }
 
+  // Validate phone number format
+  const phone = document.getElementById('phone').value;
+  if (!/^[\d\s\+-]{10,15}$/.test(phone)) {
+    document.getElementById('phone').classList.add('error');
+    isValid = false;
+  }
+
+  if (!isValid) {
+    showToast('Please fill all required fields correctly', 'error');
+    return;
+  }
+
+  // Proceed with form submission...
+});
+
+        // View patient function
+        async function viewPatient(patientId) {
+            try {
+                const { data: patient, error } = await supabase
+                    .from('patients')
+                    .select('*')
+                    .eq('id', patientId)
+                    .single();
+                
+                if (error) throw error;
+                
+                // Populate form with patient data
+                // Implement this based on your form structure
+                console.log("Viewing patient:", patient);
+                alert(`Viewing patient: ${patient.personal_info.first_name} ${patient.personal_info.last_name}`);
+            } catch (error) {
+                console.error("Error viewing patient:", error);
+            }
+        }
+
+        // Edit patient function
+        async function editPatient(patientId) {
+            try {
+                const { data: patient, error } = await supabase
+                    .from('patients')
+                    .select('*')
+                    .eq('id', patientId)
+                    .single();
+                
+                if (error) throw error;
+                
+                // Populate form with patient data for editing
+                // Implement this based on your form structure
+                console.log("Editing patient:", patient);
+                document.getElementById('patientFormSection').style.display = 'block';
+                // Fill form fields here...
+            } catch (error) {
+                console.error("Error editing patient:", error);
+            }
+        }
+    </script>
+    <script src="auth.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Section toggling functionality
+    const newPatientBtn = document.getElementById('newPatientBtn');
+    const searchPatientBtn = document.getElementById('searchPatientBtn');
+    const sendMessageBtn = document.getElementById('sendMessageBtn');
+    const cancelPatientBtn = document.getElementById('cancelPatient');
+    
+    const patientFormSection = document.getElementById('patientFormSection');
+    const searchSection = document.getElementById('searchSection');
+    const messageSection = document.getElementById('messageSection');
+    
+    // Initialize - hide all sections
+    if (patientFormSection) patientFormSection.style.display = 'none';
+    if (searchSection) searchSection.style.display = 'none';
+    if (messageSection) messageSection.style.display = 'none';
+    
+    // Button event listeners
+    if (newPatientBtn) {
+        newPatientBtn.addEventListener('click', function() {
+            if (patientFormSection) patientFormSection.style.display = 'block';
+            if (searchSection) searchSection.style.display = 'none';
+            if (messageSection) messageSection.style.display = 'none';
+            
+            // Generate a new patient ID
+            const patientIdField = document.getElementById('patientId');
+            if (patientIdField) {
+                patientIdField.value = 'PAT-' + Math.floor(Math.random() * 10000);
+            }
+            
+            // Set current date
+            const registrationDateField = document.getElementById('registrationDate');
+            if (registrationDateField) {
+                registrationDateField.valueAsDate = new Date();
+            }
+        });
+    }
+    
+    if (searchPatientBtn) {
+        searchPatientBtn.addEventListener('click', function() {
+            if (searchSection) searchSection.style.display = 'block';
+            if (patientFormSection) patientFormSection.style.display = 'none';
+            if (messageSection) messageSection.style.display = 'none';
+        });
+    }
+    
+    if (sendMessageBtn) {
+        sendMessageBtn.addEventListener('click', function() {
+            if (messageSection) messageSection.style.display = 'block';
+            if (patientFormSection) patientFormSection.style.display = 'none';
+            if (searchSection) searchSection.style.display = 'none';
+        });
+    }
+    
+    if (cancelPatientBtn) {
+        cancelPatientBtn.addEventListener('click', function() {
+            if (patientFormSection) patientFormSection.style.display = 'none';
+        });
+    }
+    
+    // Tab switching functionality
+    const tabs = document.querySelectorAll('.tab');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Remove active class from all tabs and contents
+            tabs.forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            
+            // Add active class to clicked tab and corresponding content
+            this.classList.add('active');
+            const tabId = this.getAttribute('data-tab');
+            const content = document.getElementById(tabId);
+            if (content) content.classList.add('active');
+        });
+    });
+    
+    // Help button
+    const helpBtn = document.getElementById('helpBtn');
+    if (helpBtn) {
+        helpBtn.addEventListener('click', () => {
+            alert("Help documentation will be displayed here.");
+        });
+    }
+    
+    // Make tabs scrollable on mobile
+    function adjustTabsForMobile() {
+        const tabsContainer = document.querySelector('.tabs');
+        if (tabsContainer && window.innerWidth < 768) {
+            tabsContainer.style.overflowX = 'auto';
+            tabsContainer.style.whiteSpace = 'nowrap';
+        } else if (tabsContainer) {
+            tabsContainer.style.overflowX = '';
+            tabsContainer.style.whiteSpace = '';
+        }
+    }
+    
+    // Initial adjustments
+    adjustTabsForMobile();
+    window.addEventListener('resize', adjustTabsForMobile);
+});
+</script>
+<script>
+// Add this after your existing script in fun_soft.html
+
+// Global variable to track selected patient
+let currentPaymentPatientId = null;
+
+// Payment Details button functionality
+document.getElementById('PaymentdetailsBtn').addEventListener('click', function() {
+    // Hide other sections
+    document.getElementById('patientFormSection').style.display = 'none';
+    document.getElementById('searchSection').style.display = 'none';
+    document.getElementById('messageSection').style.display = 'none';
+    
+    // Show payment section
+    document.getElementById('paymentSection').style.display = 'block';
+    
+    // Set current date
+    document.getElementById('paymentDate').valueAsDate = new Date();
+    
+    // If a patient is selected, fill their details
+    if (currentPaymentPatientId) {
+        loadPatientPaymentDetails(currentPaymentPatientId);
+    }
+});
+
+// Function to load patient payment details
+async function loadPatientPaymentDetails(patientId) {
     try {
-      const snapshot = await query.get();
-      const resultsBody = document.getElementById('resultsBody');
-      resultsBody.innerHTML = '';
-      
-      snapshot.forEach(doc => {
-        const patient = doc.data();
+        showLoading(true);
+        
+        // Get patient details
+        const { data: patient, error: patientError } = await supabase
+            .from('patients')
+            .select('*')
+            .eq('id', patientId)
+            .single();
+            
+        if (patientError) throw patientError;
+        
+        // Fill patient info
+        document.getElementById('paymentPatientId').value = patient.personal_info.patient_id;
+        document.getElementById('paymentPatientName').value = `${patient.personal_info.first_name} ${patient.personal_info.last_name}`;
+        
+        // Get payment history
+        const { data: payments, error: paymentError } = await supabase
+            .from('payments')
+            .select('*')
+            .eq('patient_id', patientId)
+            .order('payment_date', { ascending: false });
+            
+        if (paymentError) throw paymentError;
+        
+        // Populate payment history table
+        const paymentHistoryBody = document.getElementById('paymentHistoryBody');
+        paymentHistoryBody.innerHTML = '';
+        
+        payments.forEach(payment => {
+            const statusClass = payment.status === 'completed' ? 'completed' : 
+                              payment.status === 'pending' ? 'pending' : 
+                              payment.status === 'partial' ? 'partial' : 'refunded';
+                              
+            const row = `
+                <tr>
+                    <td>${new Date(payment.payment_date).toLocaleDateString()}</td>
+                    <td>${payment.payment_method}</td>
+                    <td>KES ${payment.amount.toFixed(2)}</td>
+                    <td><span class="status-badge ${statusClass}">${payment.status}</span></td>
+                    <td>${payment.receipt_number || 'N/A'}</td>
+                    <td>
+                        <button class="btn-icon view-payment" title="View details" data-id="${payment.id}">
+                            <i class="icon-eye"></i>
+                        </button>
+                        <button class="btn-icon print-payment" title="Print receipt" data-id="${payment.id}">
+                            <i class="icon-print"></i>
+                        </button>
+                    </td>
+                </tr>
+            `;
+            paymentHistoryBody.innerHTML += row;
+        });
+        
+    } catch (error) {
+        console.error("Error loading payment details:", error);
+        showToast('Error loading payment details', 'error');
+    } finally {
+        showLoading(false);
+    }
+}
+
+// Save payment
+document.getElementById('savePayment').addEventListener('click', async function() {
+    const patientId = document.getElementById('paymentPatientId').value;
+    
+    // Validate required fields
+    if (!patientId) {
+        showToast('Please select a patient first', 'error');
+        return;
+    }
+    
+    const paymentMethod = document.getElementById('paymentMethod').value;
+    const paymentAmount = document.getElementById('paymentAmount').value;
+    const paymentDate = document.getElementById('paymentDate').value;
+    
+    if (!paymentMethod || !paymentAmount || !paymentDate) {
+        showToast('Please fill all required fields', 'error');
+        return;
+    }
+    
+    const paymentData = {
+        patient_id: currentPaymentPatientId,
+        payment_method: paymentMethod,
+        amount: parseFloat(paymentAmount),
+        payment_date: paymentDate,
+        status: document.getElementById('paymentStatus').value,
+        notes: document.getElementById('paymentNotes').value,
+        receipt_number: 'REC-' + Math.floor(Math.random() * 1000000),
+        created_at: new Date()
+    };
+    
+    try {
+        showLoading(true);
+        const { data, error } = await supabase
+            .from('payments')
+            .insert([paymentData])
+            .select();
+            
+        if (error) throw error;
+        
+        showToast('Payment saved successfully!');
+        // Refresh payment history
+        loadPatientPaymentDetails(currentPaymentPatientId);
+        
+        // Reset form
+        document.getElementById('paymentAmount').value = '';
+        document.getElementById('paymentNotes').value = '';
+        
+    } catch (error) {
+        console.error("Error saving payment:", error);
+        showToast('Error saving payment: ' + error.message, 'error');
+    } finally {
+        showLoading(false);
+    }
+});
+
+// Print receipt
+document.getElementById('printReceipt').addEventListener('click', function() {
+    // Simple print functionality
+    const receiptContent = `
+        <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 400px; margin: 0 auto;">
+            <h2 style="text-align: center;">Medical Receipt</h2>
+            <hr>
+            <p><strong>Patient ID:</strong> ${document.getElementById('paymentPatientId').value}</p>
+            <p><strong>Patient Name:</strong> ${document.getElementById('paymentPatientName').value}</p>
+            <p><strong>Date:</strong> ${new Date().toLocaleString()}</p>
+            <p><strong>Payment Method:</strong> ${document.getElementById('paymentMethod').value}</p>
+            <p><strong>Amount:</strong> KES ${document.getElementById('paymentAmount').value}</p>
+            <p><strong>Status:</strong> ${document.getElementById('paymentStatus').value}</p>
+            <hr>
+            <p style="text-align: center;">Thank you for your payment!</p>
+        </div>
+    `;
+    
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write(`
+        <html>
+            <head>
+                <title>Payment Receipt</title>
+            </head>
+            <body onload="window.print();window.close()">
+                ${receiptContent}
+            </body>
+        </html>
+    `);
+    printWindow.document.close();
+});
+
+// Add payment button to search results
+document.getElementById('searchBtn').addEventListener('click', async () => {
+    // ... existing search code ...
+    
+    // Inside the search results loop:
+    data.forEach(patient => {
         const row = `
-          <tr>
-            <td>${patient.personalInfo.patientId}</td>
-            <td>${patient.personalInfo.firstName} ${patient.personalInfo.lastName}</td>
-            <td>${patient.personalInfo.phone}</td>
-            <td>${patient.lastVisit || 'N/A'}</td>
-            <td><button class="btn" onclick="viewPatient('${doc.id}')">View</button></td>
-          </tr>
+            <tr>
+                <td>${patient.personal_info.patient_id}</td>
+                <td>${patient.personal_info.first_name} ${patient.personal_info.last_name}</td>
+                <td>${patient.personal_info.phone}</td>
+                <td>${patient.last_visit || 'N/A'}</td>
+                <td>
+                    <button class="btn" onclick="viewPatient('${patient.id}')">View</button>
+                    <button class="btn" onclick="editPatient('${patient.id}')">Edit</button>
+                    <button class="btn" onclick="selectForPayment('${patient.id}')">Payment</button>
+                </td>
+            </tr>
         `;
         resultsBody.innerHTML += row;
-      });
-    } catch (error) {
-      console.error("Search error:", error);
-    }
-  });
+    });
+});
+
+// Function to select patient for payment
+function selectForPayment(patientId) {
+    currentPaymentPatientId = patientId;
+    
+    // Hide other sections
+    document.getElementById('patientFormSection').style.display = 'none';
+    document.getElementById('searchSection').style.display = 'none';
+    document.getElementById('messageSection').style.display = 'none';
+    
+    // Show payment section
+    document.getElementById('paymentSection').style.display = 'block';
+    
+    // Load patient payment details
+    loadPatientPaymentDetails(patientId);
+}
 </script>
 </body>
 </html>
