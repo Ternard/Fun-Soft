@@ -1,4 +1,4 @@
-// Initialize Supabase with environment variables
+
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 if (!supabaseUrl || !supabaseKey) {
@@ -6,14 +6,14 @@ if (!supabaseUrl || !supabaseKey) {
 }
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Enhanced login with error handling and loading state
+
 async function login() {
   try {
     showLoading(true);
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: window.location.origin // For proper OAuth flow
+        redirectTo: window.location.origin 
       }
     });
     
@@ -27,7 +27,7 @@ async function login() {
     showLoading(false);
   }
 }
-// Add to auth.js or main script
+
 function showLoading(show) {
   const overlay = document.getElementById('loadingOverlay');
   if (overlay) {
